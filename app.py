@@ -23,7 +23,8 @@ st.caption("Upload PDFs and ask me anything!")
 @st.cache_resource
 def load_models():
     embeddings = HuggingFaceEmbeddings(model_name="BAAI/bge-small-en-v1.5")
-    llm = ChatGroq(api_key=os.getenv("GROQ_API_KEY"), model="llama-3.1-8b-instant")
+    groq_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+    llm = ChatGroq(api_key=groq_key, model="llama-3.1-8b-instant")
     return embeddings, llm
 
 embeddings, llm = load_models()
